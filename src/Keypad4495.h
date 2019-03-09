@@ -3,7 +3,7 @@
    a simpler alternative, both from a usage standpoint and for ease of
    understanding the code.
 
-   http://gitlab.com/Andy4495/Keypad4495
+   https://gitlab.com/Andy4495/matrix-keypad-library
 */
 /* Version History
    1.0.0    03/05/2019  A.T.   Original
