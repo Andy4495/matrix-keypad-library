@@ -16,9 +16,9 @@ Usage
 
 When deciding on which pins to use for rows and columns, this library assumes that the columns are the `OUTPUT` pins and the rows will be configured as `INPUT_PULLUP`.
 
-In the default operation mode, the column lines are only as `OUTPUT` when that column is being scanned; they are configured as `INPUT` at all other times.
+In the default operation mode, the column lines are only configured as `OUTPUT` when that column is being scanned; they are configured as `INPUT` at all other times.
 
- There is also a "Keep Active" mode where the column lines are set to `OUTPUT` at all times. This mode can be useful in cases where the column lines are multiplexed with some other output lines (e.g., sharing the lines with another parallel interface).
+There is also a "Keep Active" mode where the column lines are set to `OUTPUT` at all times. This mode can be useful in certain situations where the column lines are multiplexed with some other output lines (e.g., sharing the lines with another parallel interface).
 
 The row lines are configured as `INPUT_PULLUP` as soon as the constructor is called.
 
@@ -61,7 +61,7 @@ Then, **use the constructor to create the keypad object**, using the arrays and 
 
     Keypad4495 myKeypad(keymap, rowPins, colPins, NUM_ROWS, NUM_COLS);
 
-The alternate form of the constructor is used for "Keep Active" mode where the column lines are set to `OUTPUT` at all times. This mode may be used in cases where the column lines are shared by other devices. Note that the actual pin values are not retained, just the `OUTPUT` setting: 
+The alternate form of the constructor is used for "Keep Active" mode where the column lines are set to `OUTPUT` at all times. This mode may be used in cases where the column lines are shared by other devices. Note that the actual pin values are not retained, just the `OUTPUT` setting:
 
     Keypad4495 myKeypad(keymap, rowPins, colPins, NUM_ROWS, NUM_COLS, true);
 
