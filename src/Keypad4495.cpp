@@ -7,16 +7,17 @@
 */
 /* Version History
    1.0.0    03/05/2019  A.T.   Original
-
+   1.0.1    04/05/2019  A.T.   Added support for "Keep Active" mode
 */
 #include "Keypad4495.h"
 
-Keypad4495::Keypad4495(char *userKeymap, byte *rowPins, byte *colPins, byte numRows, byte numCols){
+Keypad4495::Keypad4495(char *userKeymap, byte *rowPins, byte *colPins, byte numRows, byte numCols, bool keepActive){
   _keymap = userKeymap;
   _rowPins = rowPins;
   _colPins = colPins;
   _numRows = numRows;
   _numCols = numCols;
+  _keepActive = keepActive;
 
   int i;
 
@@ -24,9 +25,15 @@ Keypad4495::Keypad4495(char *userKeymap, byte *rowPins, byte *colPins, byte numR
     pinMode(_rowPins[i], INPUT_PULLUP);
   }
 
-  for (i = 0; i < _numCols; i++) {
-    digitalWrite(_colPins[i], LOW);
-    pinMode(_colPins[i], INPUT);
+  // If keepActive is true, then we leave the column pins in
+  // output mode all the time (except when scanning the keypad)
+  if (_keepActive == true) {
+    enableCols();
+  }
+  else { // Otherwise, column pins are set to input mode unless scanning keypad
+    for (i = 0; i < _numCols; i++) {
+        pinMode(_colPins[i], INPUT);
+      }
   }
 };
 
@@ -36,9 +43,15 @@ char Keypad4495::waitForKey() {
   char key;
   int c, r;
 
+  // Need to disable the columns so that only one is active at a time when scanning
+  if (_keepActive == true) {
+    disableCols();
+  }
+
   while (!keypress) {
     for (c = 0; c < _numCols; c++) {
       pinMode(_colPins[c], OUTPUT);
+      digitalWrite(_colPins[c], LOW);
       for (r = 0; r < _numRows; r++) {
         if (digitalRead(_rowPins[r]) == LOW) {
           key = _keymap[c * _numCols + r];
@@ -48,6 +61,10 @@ char Keypad4495::waitForKey() {
       pinMode(_colPins[c], INPUT);
     }
   }
+
+  if (_keepActive == true) {
+    enableCols();
+  }
   return(key);
 };
 
@@ -56,14 +73,24 @@ char Keypad4495::getKey() {
   char key = NO_KEY;
   int c, r;
 
+  // Need to disable the columns so that only one is active at a time when scanning
+  if (_keepActive == true) {
+    disableCols();
+  }
+
   for (c = 0; c < _numCols; c++) {
     pinMode(_colPins[c], OUTPUT);
+    digitalWrite(_colPins[c], LOW);
     for (r = 0; r < _numRows; r++) {
       if (digitalRead(_rowPins[r]) == LOW) {
         key = _keymap[c * _numCols + r];
       }
     }
     pinMode(_colPins[c], INPUT);
+  }
+
+  if (_keepActive == true) {
+    enableCols();
   }
   return(key);
 };
@@ -72,8 +99,14 @@ char Keypad4495::getKey() {
 void Keypad4495::getMatrixStatus(byte* matrix_array) {
   int c, r;
 
+  // Need to disable the columns so that only one is active at a time when scanning
+  if (_keepActive == true) {
+    disableCols();
+  }
+
   for (c = 0; c < _numCols; c++) {
     pinMode(_colPins[c], OUTPUT);
+    digitalWrite(_colPins[c], LOW);
     for (r = 0; r < _numRows; r++) {
       if (digitalRead(_rowPins[r]) == LOW) {
         matrix_array[c * _numCols + r] = 1;
@@ -83,5 +116,27 @@ void Keypad4495::getMatrixStatus(byte* matrix_array) {
       }
     }
     pinMode(_colPins[c], INPUT);
+  }
+
+  if (_keepActive == true) {
+    enableCols();
+  }
+};
+
+// -------------------------------------------------------------------
+// Private methods
+// -------------------------------------------------------------------
+void Keypad4495::disableCols() {
+  int i;
+  for (i=0; i < _numCols; i++) {
+    pinMode(_colPins[i], INPUT);
+  }
+
+};
+
+void Keypad4495::enableCols() {
+  int i;
+  for (i=0; i < _numCols; i++) {
+    pinMode(_colPins[i], OUTPUT);
   }
 };

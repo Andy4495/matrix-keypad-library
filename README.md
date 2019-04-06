@@ -14,7 +14,13 @@ Usage
 
 *See the example sketch in the `examples` folder.*
 
-When deciding on which pins to use for rows and columns, this library assumes that the columns are the `OUTPUT` pins and the rows will be configured as `INPUT_PULLUP`. The column lines are only set to `OUTPUT` mode when that column is being scanned; they are configured as `INPUT` at all other times. The row lines are configured as `INPUT_PULLUP` as soon as the constructor is called.
+When deciding on which pins to use for rows and columns, this library assumes that the columns are the `OUTPUT` pins and the rows will be configured as `INPUT_PULLUP`.
+
+In the default operation mode, the column lines are only as `OUTPUT` when that column is being scanned; they are configured as `INPUT` at all other times.
+
+ There is also a "Keep Active" mode where the column lines are set to `OUTPUT` at all times. This mode can be useful in cases where the column lines are multiplexed with some other output lines (e.g., sharing the lines with another parallel interface).
+
+The row lines are configured as `INPUT_PULLUP` as soon as the constructor is called.
 
 First, **include the header file**:
 
@@ -51,9 +57,13 @@ Next, **define the row size and column size** of the keypad, and then **define a
     16th       15          8        5        '1'
 
 
-Then, **use the constructor to create the keypad object**, using the arrays and size values defined above:
+Then, **use the constructor to create the keypad object**, using the arrays and size values defined above. The first form of the constructor is for the default mode where the column lines are only set to `OUTPUT` when the keypad is being scanned:
 
     Keypad4495 myKeypad(keymap, rowPins, colPins, NUM_ROWS, NUM_COLS);
+
+The alternate form of the constructor is used for "Keep Active" mode where the column lines are set to `OUTPUT` at all times. This mode may be used in cases where the column lines are shared by other devices. Note that the actual pin values are not retained, just the `OUTPUT` setting: 
+
+    Keypad4495 myKeypad(keymap, rowPins, colPins, NUM_ROWS, NUM_COLS, true);
 
 And finally, **to get a keypress, use either `waitForKey()` or `getKey()`**.
 
@@ -67,9 +77,9 @@ For example, using the keypad object defined above:
 
 `getKey()` is non-blocking. If a key is currently pressed, it will return the character defined by your keymap representing that key. If nothing is pressed, then it will return `Keypad4495::NO_KEY`.
 
-Both of the above methods will return a maximum of one key (the first one found while scanning the matrix).
+Both of the above methods will return a maximum of one key (the last one found while scanning the keypad matrix).
 
-Alternatively, **if you want to detect multiple keys pressed at the same time**, or use a more elaborate key detection routine (possibly as part of a debouncing algorithm), the **use `getMatrixStatus()`**. This takes as a paramter an aray of bytes that is equal to the size of the matrix (i.e., NUM_ROWS * NUM_COLS). Upon return, it will have set the corresponding element of the array to `1` if that key is pressed and `0` if it is not pressed:
+Alternatively, **if you want to detect multiple keys pressed at the same time**, or use a more elaborate key detection routine (possibly as part of a debouncing algorithm), then **use `getMatrixStatus()`**. This takes as a parameter an array of bytes that is equal to the size of the matrix (i.e., NUM_ROWS * NUM_COLS). Upon return, it will have set the corresponding element of the array to `1` if that key is pressed and `0` if it is not pressed:
 
     void getMatrixStatus(byte* matrix_array);
 

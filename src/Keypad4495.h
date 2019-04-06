@@ -7,6 +7,7 @@
 */
 /* Version History
    1.0.0    03/05/2019  A.T.   Original
+   1.0.1    04/05/2019  A.T.   Added support for "Keep Active" mode
 
 */
 #ifndef KEYPAD4495_LIBRARY
@@ -17,7 +18,7 @@
 class Keypad4495 {
 public:
   enum {NO_KEY=0, NO_PIN=255};
-  Keypad4495(char *userKeymap, byte *rowPins, byte *colPins, byte numRows, byte numCols);
+  Keypad4495(char *userKeymap, byte *rowPins, byte *colPins, byte numRows, byte numCols, bool keepActive=false);
   char waitForKey();          // Blocking call -- waits for a keypress before returning
   char getKey();              // Non-blocking. Returns first key found in scan. Returns NO_KEY if no keys are pressed
   void getMatrixStatus(byte* matrix_array); // Scans full matrix and sets corresponding element to 1 if that key is pressed
@@ -28,6 +29,9 @@ private:
   byte *_colPins;
   byte _numRows;
   byte _numCols;
+  bool _keepActive;
+  void disableCols();
+  void enableCols();
 };
 
 #endif
