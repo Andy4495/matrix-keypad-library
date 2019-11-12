@@ -1,7 +1,7 @@
 /******************************************************************************
   Matrix Keypad Library Example
 
-  https://gitlab.com/Andy4495/matrix-keypad-library
+  https://github.com/Andy4495/matrix-keypad-library
 
    Version History
    1.0.0    03/08/2019  A.T.   Original
@@ -9,8 +9,8 @@
 ******************************************************************************/
 #define NUM_COLS 4
 #define NUM_ROWS 4
-byte colPins[NUM_COLS] = {2, 3, 6, 8};    
-byte rowPins[NUM_ROWS] = {13, 12, 11, 5}; 
+byte colPins[NUM_COLS] = {2, 3, 6, 8};
+byte rowPins[NUM_ROWS] = {13, 12, 11, 5};
 
 #include "Keypad4495.h"
 
