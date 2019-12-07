@@ -8,6 +8,7 @@
 /* Version History
    1.0.0    03/05/2019  A.T.   Original
    1.0.1    04/05/2019  A.T.   Added support for "Keep Active" mode
+   1.1.0    12/06/2019  A.T.   Added debouncing methods.
 */
 #include "Keypad4495.h"
 
@@ -18,6 +19,7 @@ Keypad4495::Keypad4495(char *userKeymap, byte *rowPins, byte *colPins, byte numR
   _numRows = numRows;
   _numCols = numCols;
   _keepActive = keepActive;
+  _debounce_ms = 20;
 
   int i;
 
@@ -121,6 +123,59 @@ void Keypad4495::getMatrixStatus(byte* matrix_array) {
   if (_keepActive == true) {
     enableCols();
   }
+};
+
+char Keypad4495::getKeyWithDebounce() {
+  char button;
+  unsigned long pressTime;
+
+  button = getKey();
+  if (button != Keypad4495::NO_KEY) {
+    pressTime = millis();
+    while (millis() - pressTime < _debounce_ms)
+      ; // Spin our wheels while we wait
+
+    if (button == getKey()) {
+      // Same button, now wait for it to be released
+      while (getKey() == button)
+        ; // Spin our wheels and wait for button to be released
+    } else {
+      // Different button, so return NO_KEY and ignore the keypress
+      button = Keypad4495::NO_KEY;
+    }
+  }
+  return button;
+};
+
+// Blocking call -- waits for a keypress before returning
+char Keypad4495::waitForKeyWithDebounce() {
+  char button;
+  unsigned long pressTime;
+  bool keypress = false;
+
+  while (keypress == false) {
+    button = waitForKey();
+    pressTime = millis();
+    while (millis() - pressTime < _debounce_ms)
+    ; // Spin our wheels while we wait
+
+    if (button == getKey()) {
+      // Same button, now wait for it to be released
+      while (getKey() == button)
+        ; // Spin our wheels and wait for button to be released
+      keypress = true; // Same key pressed during debounce time is now released, so return
+    } // If the same key isn't still pressed, then try again
+  }
+  return button;
+};
+
+
+void Keypad4495::setDebounce(uint8_t debounce_time) {
+  _debounce_ms = debounce_time;
+};
+
+uint8_t Keypad4495::getDebounce() {
+  return _debounce_ms;
 };
 
 // -------------------------------------------------------------------

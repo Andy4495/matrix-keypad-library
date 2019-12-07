@@ -83,6 +83,17 @@ Alternatively, **if you want to detect multiple keys pressed at the same time**,
 
     void getMatrixStatus(byte* matrix_array);
 
+Debouncing
+----------
+
+The library includes methods to debounce the button presses. The default debounce time is 20 ms when the keypad object is created. This can be changed with the `setDebounce(uint8_t debounce_time)` method. Values from 0 to 255 ms are supported.
+
+To have the library debounce the buttons, use either of the following methods:
+
+`waitForKeyWithDebounce()` works the same as `waitForKey()`, except it debounces the button before returning the key value. Just like `waitForKey()`, it is a blocking call and will not return until it detects and debounces a button. Debouncing includes waiting for the key to be released after the debounce time.
+
+`getKeyWithDebounce()` works the same as `getKey()`, except that if it detects a key press, then it waits to debounce the key before returning. If no key is pressed, or the key does not stay pressed during the debounce time, then `Keypad4495::NO_KEY` is returned. If no keys are pressed when the method is called, then it is non-blocking. If a key is pressed, then the method blocks until the debounce routine is completed.
+
 Using the Texas Instruments BOOST-IR BoosterPack
 ------------------------------------------------
 
@@ -91,16 +102,6 @@ This library was originally designed for a project using TI's [BOOST-IR][1] Boos
 The BOOST-IR keypad uses BoosterPack pin 2 for one of the column scan pins. Pin 2 is also the Hardware Serial RX pin on some LaunchPads (e.g. MSP-EXP430FR4133, MSP-EXP430FR2433, and MSP-EXP430FR2533G2). When using those LaunchPads, it is necessary to disconnect the RXD jumper from the emulation section of the LaunchPad for proper operation of the BOOST-IR keypad.
 
 The BOOST-IR also uses the Hardware Serial TX pin for hardware IR modulation, so the TX pin needs to be disconnected from the emulation section of the LaunchPad when using the hardware IR modulation functionality of the board.
-
-
-Future Enhancements
--------------------
-
-Some potential future updates to the library:
-
-* Debouncing
-* Additional example sketches: figure out your keymap, debouncing keypresses external from the library.
-
 
 References
 ----------
