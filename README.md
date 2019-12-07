@@ -5,8 +5,6 @@ This library is designed to be simple-to-use from a sketch-writing perspective. 
 
 The keypad object used by the library does not keep any state information related to keypresses -- each call to get a key status is independent of any previous calls.
 
-The library does not currently support debouncing; that needs to be handled in the sketch itself.
-
 To avoid naming conflicts with other existing keypad libraries, the keypad object type is `Keypad4495` and the include file is `Keypad4495.h`
 
 Usage
