@@ -106,5 +106,11 @@ References
 + [Keypad library][2] from Arduino Playground
 + Texas Instruments [BOOST-IR][1] BoosterPack
 
+License
+-------
+The software and other files in this repository are released under what is commonly called the [MIT License][100]. See the file [`LICENSE.txt`][101] in this repository.
+
 [1]:http://www.ti.com/tool/BOOST-IR
 [2]:http://playground.arduino.cc/Code/Keypad
+[100]: https://choosealicense.com/licenses/mit/
+[101]: ./LICENSE.txt
