@@ -1,5 +1,7 @@
-Keypad4495 Library
-====================
+# Keypad4495 Library
+
+[![Arduino Compile Sketches](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/arduino-compile-sketches.yml/badge.svg)](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/arduino-compile-sketches.yml)
+[![Check Markdown Links](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/CheckMarkdownLinks.yml/badge.svg)](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/CheckMarkdownLinks.yml)
 
 This library is designed to be simple-to-use from a sketch-writing perspective. It is also desgined to have a simple-to-understand implementation so that others can easily understand how it works and extend it if desired.
 
@@ -7,8 +9,7 @@ The keypad object used by the library does not keep any state information relate
 
 To avoid naming conflicts with other existing keypad libraries, the keypad object type is `Keypad4495` and the include file is `Keypad4495.h`
 
-Usage
------
+## Usage
 
 *See the example sketch in the `examples` folder.*
 
@@ -94,8 +95,7 @@ Alternatively, **if you want to detect multiple keys pressed at the same time**,
 void getMatrixStatus(byte* matrix_array);
 ```
 
-Debouncing
-----------
+## Debouncing
 
 The library includes methods to debounce the button presses. The default debounce time is 20 ms when the keypad object is created. This can be changed with the `setDebounce(uint8_t debounce_time)` method. Values from 0 to 255 ms are supported.
 
@@ -105,8 +105,7 @@ To have the library debounce the buttons, use either of the following methods:
 
 `getKeyWithDebounce()` works the same as `getKey()`, except that if it detects a key press, then it waits to debounce the key before returning. If no key is pressed, or the key does not stay pressed during the debounce time, then `Keypad4495::NO_KEY` is returned. If no keys are pressed when the method is called, then it is non-blocking. If a key is pressed, then the method blocks until the debounce routine is completed.
 
-Using the Texas Instruments BOOST-IR BoosterPack
-------------------------------------------------
+## Using the Texas Instruments BOOST-IR BoosterPack
 
 This library was originally designed for a project using TI's [BOOST-IR][1] BoosterPack. However, it is written generally enough that it should work with any standard matrix keypad.
 
@@ -114,14 +113,12 @@ The BOOST-IR keypad uses BoosterPack pin 2 for one of the column scan pins. Pin 
 
 The BOOST-IR also uses the Hardware Serial TX pin for hardware IR modulation, so the TX pin needs to be disconnected from the emulation section of the LaunchPad when using the hardware IR modulation functionality of the board.
 
-References
-----------
+## References
 
 + [Keypad library][2] from Arduino Playground
 + Texas Instruments [BOOST-IR][1] BoosterPack
 
-License
--------
+## License
 
 The software and other files in this repository are released under what is commonly called the [MIT License][100]. See the file [`LICENSE.txt`][101] in this repository.
 
