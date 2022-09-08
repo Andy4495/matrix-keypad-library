@@ -126,4 +126,4 @@ The software and other files in this repository are released under what is commo
 [2]:http://playground.arduino.cc/Code/Keypad
 [100]: https://choosealicense.com/licenses/mit/
 [101]: ./LICENSE.txt
-[200]: https://github.com/Andy4495/matrix-keypad-library
+[//]: # ([200]: https://github.com/Andy4495/matrix-keypad-library)
