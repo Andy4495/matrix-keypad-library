@@ -23,7 +23,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - uses: arduino/compile-sketches@v1
+      - if: ${{ env.ACT }}
+        uses: arduino/compile-sketches@v1.0.1
+        with:
+          fqbn: ${{ matrix.fqbn }}
+          platforms: |
+            - name: ${{ matrix.platform-name }}
+              version: latest
+              source-url: ${{ matrix.platform-sourceurl }}
+          sketch-paths: |
+            - .
+          verbose: true
+          enable-warnings-report: true
+          libraries: |
+            - source-path: ./
+      - if: ${{ !env.ACT }}
+        uses: arduino/compile-sketches@v1
         with:
           fqbn: ${{ matrix.fqbn }}
           platforms: |
