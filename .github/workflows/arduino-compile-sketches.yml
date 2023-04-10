@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - if: ${{ env.ACT }}
-        uses: arduino/compile-sketches@v1.0.1
+        uses: arduino/compile-sketches@v1.1.0
         with:
           fqbn: ${{ matrix.fqbn }}
           platforms: |
