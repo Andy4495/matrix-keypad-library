@@ -42,7 +42,7 @@ Keypad4495::Keypad4495(char *userKeymap, byte *rowPins, byte *colPins, byte numR
 // Blocking call -- waits for a keypress before returning
 char Keypad4495::waitForKey() {
   bool keypress = false;
-  char key;
+  char key = NO_KEY;
   int c, r;
 
   // Need to disable the columns so that only one is active at a time when scanning
