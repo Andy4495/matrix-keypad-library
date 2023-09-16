@@ -1,0 +1,28 @@
+# From: https://github.com/ncipollo/release-action
+
+name: Create Release
+
+on: 
+  push:
+    tags:
+    - '*'
+  workflow_dispatch:
+    inputs:
+        tag:
+            description: Release tag
+            required: false
+            type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ncipollo/release-action@v1
+      with:
+        generateReleaseNotes: true
+        name: ${{ github.event.repository.name }} ${{ github.ref_name }}
+        tag: ${{ inputs.tag }}
+        skipIfReleaseExists: true
