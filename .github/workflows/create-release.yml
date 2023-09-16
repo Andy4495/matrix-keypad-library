@@ -10,11 +10,11 @@ on:
     inputs:
         tag:
             description: Release tag
-            required: false
+            required: true
             type: string
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
