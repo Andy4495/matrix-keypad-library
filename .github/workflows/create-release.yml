@@ -8,9 +8,9 @@ on:
     - '*'
   workflow_dispatch:
     inputs:
-        tag:
-            description: Release tag
-            required: true
+        body:
+            description: Release body text
+            required: false
             type: string
 
 jobs:
@@ -24,5 +24,5 @@ jobs:
       with:
         generateReleaseNotes: true
         name: ${{ github.event.repository.name }} ${{ github.ref_name }}
-        tag: ${{ inputs.tag }}
+        body: ${{ inputs.body }}
         skipIfReleaseExists: true
