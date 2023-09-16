@@ -5,13 +5,7 @@ name: Create Release
 on: 
   push:
     tags:
-    - '*'
-  workflow_dispatch:
-    inputs:
-        body:
-            description: Release body text
-            required: false
-            type: string
+    - 'v*'
 
 jobs:
   release:
@@ -24,5 +18,4 @@ jobs:
       with:
         generateReleaseNotes: true
         name: ${{ github.event.repository.name }} ${{ github.ref_name }}
-        body: ${{ inputs.body }}
         skipIfReleaseExists: true
