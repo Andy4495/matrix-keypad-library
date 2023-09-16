@@ -3,9 +3,12 @@
 name: Create Release
 
 on: 
-  push:
-    tags:
-    - 'v*'
+  workflow_dispatch:
+    inputs:
+        tag:
+            description: Release tag to create
+            required: true
+            type: string
 
 jobs:
   release:
@@ -19,3 +22,4 @@ jobs:
         generateReleaseNotes: true
         name: ${{ github.event.repository.name }} ${{ github.ref_name }}
         skipIfReleaseExists: true
+        tag: ${{ github.inputs.tag }}
