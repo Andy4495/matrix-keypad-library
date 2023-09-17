@@ -22,4 +22,4 @@ jobs:
         generateReleaseNotes: true
         name: ${{ github.event.repository.name }} ${{ github.ref_name }}
         skipIfReleaseExists: true
-        tag: refs/tags/${{ github.inputs.tag }}
+        tag: ${{ inputs.tag }}
