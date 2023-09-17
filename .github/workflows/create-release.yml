@@ -12,6 +12,8 @@ on:
 
 jobs:
   create-release:
+    permissions:
+      contents: write
     name: call-create-release-workflow
     uses: Andy4495/.github/.github/workflows/create-release.yml@main
     with:
