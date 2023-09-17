@@ -11,8 +11,9 @@ on:
         type: string
 
 jobs:
-  name: call-release-workflow:
-    uses: Andy4495/.github/.github/workflows/arduino-compile-sketches.yml@main
+  create-release:
+    name: call-create-release-workflow
+    uses: Andy4495/.github/.github/workflows/create-release.yml@main
     with:
       tag: ${{ inputs.tag }}
 
