@@ -1,25 +1,18 @@
-# From: https://github.com/ncipollo/release-action
+# Uses action: https://github.com/ncipollo/release-action
 
 name: Create Release
 
 on: 
   workflow_dispatch:
     inputs:
-        tag:
-            description: Draft release tag
-            required: true
-            type: string
+      tag:
+        description: Release tag name
+        required: true
+        type: string
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-    - uses: actions/checkout@v3
-    - uses: ncipollo/release-action@v1
-      with:
-        generateReleaseNotes: true
-        name: ${{ github.event.repository.name }} ${{ github.ref_name }}
-        skipIfReleaseExists: true
-        tag: ${{ inputs.tag }}
+  name: call-release-workflow:
+    uses: Andy4495/.github/.github/workflows/arduino-compile-sketches.yml@main
+    with:
+      tag: ${{ inputs.tag }}
+
