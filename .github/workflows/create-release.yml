@@ -18,4 +18,5 @@ jobs:
     uses: Andy4495/.github/.github/workflows/create-release.yml@main
     with:
       tag: ${{ inputs.tag }}
+      draft: true
     secrets: inherit  
