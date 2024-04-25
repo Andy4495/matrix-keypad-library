@@ -3,7 +3,7 @@
 [![Arduino Compile Sketches](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/arduino-compile-sketches.yml/badge.svg)](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/arduino-compile-sketches.yml)
 [![Check Markdown Links](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/CheckMarkdownLinks.yml/badge.svg)](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/CheckMarkdownLinks.yml)
 
-This library is designed to be simple-to-use from a sketch-writing perspective. It is also desgined to have a simple-to-understand implementation so that others can easily understand how it works and extend it if desired.
+This library is designed to be simple-to-use from a sketch-writing perspective. It is also designed to have a simple-to-understand implementation so that others can easily understand how it works and extend it if desired.
 
 The keypad object used by the library does not keep any state information related to keypresses -- each call to get a key status is independent of any previous calls.
 
