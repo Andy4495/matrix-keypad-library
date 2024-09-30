@@ -1,7 +1,7 @@
 # Keypad4495 Library
 
 [![Arduino Compile Sketches](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/arduino-compile-sketches.yml/badge.svg)](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/arduino-compile-sketches.yml)
-[![Check Markdown Links](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/CheckMarkdownLinks.yml/badge.svg)](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/CheckMarkdownLinks.yml)
+[![Check Markdown Links](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/check-links.yml/badge.svg)](https://github.com/Andy4495/matrix-keypad-library/actions/workflows/check-links.yml)
 
 This library is designed to be simple-to-use from a sketch-writing perspective. It is also designed to have a simple-to-understand implementation so that others can easily understand how it works and extend it if desired.
 
